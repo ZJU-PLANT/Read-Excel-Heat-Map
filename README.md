@@ -1,0 +1,2 @@
+# Read-Excel-Heat-Map
+import pandas as pd import seaborn as sns import matplotlib.pyplot as plt  catering_sale = 'D:/我的文档/1ZJU/python数据文档/学生成绩2.xlsx' df1 = pd.read_excel(catering_sale,'一班') df1.columns = ['学号','一班'] df2 = pd.read_excel(catering_sale,'二班') df2.columns = ['学号','二班'] df = pd.merge(df1,df2,on='学号') print(df)  plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号  plt.figure() sns.heatmap(df[['一班','二班']]) plt.yticks() plt.xticks()  plt.show()
