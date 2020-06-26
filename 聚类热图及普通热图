@@ -1,0 +1,49 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+import pandas as pd
+
+#excel名，如果在工程里就只需要写文件名，如果不是建的工程则使用全路径(带c:/xxx/xxx)
+excel_name = '学生成绩1.xlsx'
+
+#读取excel数据，返回一个seaborn可识别的数据，Dataframe(pandas包读取)或numpy数组(numpy读取)
+def readExcel():
+
+    #使用pandas来读取excel为dataframe格式，sheet_name参数为表名
+    df = pd.read_excel(excel_name, sheet_name='Sheet1')
+
+    #行列数
+    nrows = df.shape[0]
+    ncols = df.columns.size
+    print("Max rows is " + str(nrows))
+    print("Max colums is " + str(ncols))
+    print(df)
+    print(df.iloc[0, 0])
+    return df
+
+def drawHeatMap():
+    #获取excel数据，并指定行列
+    data = readExcel()
+    dataFrame = data.pivot('姓名', '科目', '成绩')
+
+    # 指定展示字体
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+
+    #配置热力图
+    sns.heatmap(dataFrame, vmin=0, vmax=100, cmap='YlGnBu', fmt='d', annot=True)
+
+    #配置聚簇图
+    sns.clustermap(dataFrame, fmt='d', cmap='YlGnBu')
+
+
+
+    #绘制所有图片
+    plt.show()
+
+
+def dataTset():
+    flights = sns.load_dataset('flights')
+    print(flights)
+
+drawHeatMap()
+
