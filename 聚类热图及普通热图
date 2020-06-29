@@ -4,7 +4,7 @@ import seaborn as sns
 import pandas as pd
 
 #excel名，如果在工程里就只需要写文件名，如果不是建的工程则使用全路径(带c:/xxx/xxx)
-excel_name = '学生成绩1.xlsx'
+excel_name = 'D:/我的文档/1ZJU/lq/学生成绩1.xlsx'
 
 #读取excel数据，返回一个seaborn可识别的数据，Dataframe(pandas包读取)或numpy数组(numpy读取)
 def readExcel():
@@ -22,20 +22,21 @@ def readExcel():
     return df
 
 def drawHeatMap():
-    #获取excel数据，并指定行列
+    #获取excel数据，并指定行列（行，列，值）
     data = readExcel()
     dataFrame = data.pivot('姓名', '科目', '成绩')
 
     # 指定展示字体
     plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['font.serif'] = ['Times New Roman']
+    #显示负号
+    plt.rcParams['axes.unicode_minus'] = False
 
     #配置热力图
-    sns.heatmap(dataFrame, vmin=0, vmax=100, cmap='YlGnBu', fmt='d', annot=True)
+    sns.heatmap(dataFrame, vmin=-100, vmax=100, center=0, cmap='OrRd', fmt='d', annot=True, linewidths=0.5, square=True)
 
     #配置聚簇图
     sns.clustermap(dataFrame, fmt='d', cmap='YlGnBu')
-
-
 
     #绘制所有图片
     plt.show()
@@ -46,4 +47,3 @@ def dataTset():
     print(flights)
 
 drawHeatMap()
-
